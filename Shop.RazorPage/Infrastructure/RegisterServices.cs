@@ -14,7 +14,7 @@ namespace Shop.RazorPage.Infrastructure;
 
 public static class RegisterServices
 {
-    const string baseAddress = "https://localhost:5001";
+    const string baseAddress = "https://localhost:5001/api/";
     public static IServiceCollection RegisterApiServices(this IServiceCollection services)
     {
         services.AddHttpClient<IAuthService, AuthService>(httpClient =>
