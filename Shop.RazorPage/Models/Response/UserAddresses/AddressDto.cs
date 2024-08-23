@@ -1,6 +1,6 @@
-﻿namespace Shop.RazorPage.Models.Command.Orders;
+﻿namespace Shop.RazorPage.Models.Response.UserAddresses;
 
-public class CheckOutOrderCommand
+public class AddressDto : BaseDto
 {
     public long UserId { get; set; }
     public string Shire { get; set; }
@@ -11,5 +11,5 @@ public class CheckOutOrderCommand
     public string Name { get; set; }
     public string Family { get; set; }
     public string NationalCode { get; set; }
-    public long ShippingMethodId { get; set; }
+    public bool ActiveAddress { get; set; }
 }

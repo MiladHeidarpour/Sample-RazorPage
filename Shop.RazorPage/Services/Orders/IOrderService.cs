@@ -1,5 +1,4 @@
-﻿using Eshop.RazorPage.Models.Orders.Command;
-using Shop.RazorPage.Models.Command.Orders;
+﻿using Shop.RazorPage.Models.Command.Orders;
 using Shop.RazorPage.Models.Response.Orders;
 using Shop.RazorPage.Models;
 

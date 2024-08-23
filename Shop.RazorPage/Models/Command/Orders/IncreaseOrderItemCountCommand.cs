@@ -1,4 +1,4 @@
-﻿namespace Eshop.RazorPage.Models.Orders.Command;
+﻿namespace Shop.RazorPage.Models.Command.Orders;
 
 public class IncreaseOrderItemCountCommand
 {
