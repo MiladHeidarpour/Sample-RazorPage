@@ -14,7 +14,8 @@ using Shop.RazorPage.Services.Users;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+
 builder.Services.RegisterApiServices();
 builder.Services.AddHttpContextAccessor();
 
