@@ -8,9 +8,9 @@ namespace Shop.RazorPage.Services.Auth;
 public class AuthService : IAuthService
 {
     private readonly HttpClient _client;
-    private readonly HttpContextAccessor _contextAccessor;
+    private readonly IHttpContextAccessor _contextAccessor;
 
-    public AuthService(HttpClient client, HttpContextAccessor contextAccessor)
+    public AuthService(HttpClient client, IHttpContextAccessor contextAccessor)
     {
         _client = client;
         _contextAccessor = contextAccessor;

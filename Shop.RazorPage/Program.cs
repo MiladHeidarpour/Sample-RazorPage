@@ -1,23 +1,12 @@
 using Shop.RazorPage.Infrastructure;
-using Shop.RazorPage.Services.Auth;
-using Shop.RazorPage.Services.Banners;
-using Shop.RazorPage.Services.Categories;
-using Shop.RazorPage.Services.Comments;
-using Shop.RazorPage.Services.Orders;
-using Shop.RazorPage.Services.Products;
-using Shop.RazorPage.Services.Roles;
-using Shop.RazorPage.Services.Sellers;
-using Shop.RazorPage.Services.Sliders;
-using Shop.RazorPage.Services.UserAddress;
-using Shop.RazorPage.Services.Users;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
-
 builder.Services.RegisterApiServices();
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
 var app = builder.Build();
 

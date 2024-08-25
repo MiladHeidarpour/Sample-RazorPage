@@ -17,6 +17,7 @@ public static class RegisterServices
     const string baseAddress = "https://localhost:5001/api/";
     public static IServiceCollection RegisterApiServices(this IServiceCollection services)
     {
+
         services.AddHttpClient<IAuthService, AuthService>(httpClient =>
         {
             httpClient.BaseAddress = new Uri(baseAddress);
