@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Shop.RazorPage.Infrastructure.RazorUtils;
 using Shop.RazorPage.Models.Command.Auth;
 using Shop.RazorPage.Services.Auth;
 
@@ -9,7 +10,7 @@ namespace Shop.RazorPage.Pages.Auth;
 
 [BindProperties]
 [ValidateAntiForgeryToken]
-public class RegisterModel : PageModel
+public class RegisterModel : BaseRazorPage
 {
 
     [DisplayName("شماره تلفن")]
@@ -50,12 +51,14 @@ public class RegisterModel : PageModel
             ConfirmPassword = ConfirmPassword
         });
 
-        if (result.IsSuccess == false)
-        {
-            ModelState.AddModelError(nameof(PhoneNumber), result.MetaData.Message);
-            return Page();
-        }
+        return RedirectAndShowAlert(result, RedirectToPage("Login"));
 
-        return RedirectToPage("Login");
+        //if (result.IsSuccess == false)
+        //{
+        //    ModelState.AddModelError(nameof(PhoneNumber), result.MetaData.Message);
+        //    return Page();
+        //}
+
+        //return RedirectToPage("Login");
     }
 }
