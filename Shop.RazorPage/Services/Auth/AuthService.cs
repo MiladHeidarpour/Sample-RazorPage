@@ -40,8 +40,15 @@ public class AuthService : IAuthService
     }
     public async Task<ApiResult?> Logout()
     {
-        var result = await _client.DeleteAsync("Auth/Logout");
-        return await result.Content.ReadFromJsonAsync<ApiResult>();
+        try
+        {
+            var result = await _client.DeleteAsync("Auth/Logout");
+            return await result.Content.ReadFromJsonAsync<ApiResult>();
+        }
+        catch (Exception e)
+        {
+            return ApiResult.Error();
+        }
     }
 
 }

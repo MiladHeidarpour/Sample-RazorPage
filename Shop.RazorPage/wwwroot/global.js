@@ -91,7 +91,6 @@ $(document).ready(function () {
     var result = getCookie("SystemAlert");
     if (result) {
         result = JSON.parse(result);
-        console.log(result);
         if (result.IsSuccess === true) {
             Success("", result.MetaData.Message, result.isReloadPage);
         } else {

@@ -12,36 +12,44 @@ using Shop.RazorPage.Services.Users;
 
 namespace Shop.RazorPage.Infrastructure;
 
-public static class RegisterServices
+public static class RegisterDependencyServices
 {
     const string baseAddress = "https://localhost:5001/api/";
     public static IServiceCollection RegisterApiServices(this IServiceCollection services)
     {
+        services.AddHttpContextAccessor();
+        services.AddScoped<HttpClientAuthorizationDelegatingHandler>();
 
         services.AddHttpClient<IAuthService, AuthService>(httpClient =>
         {
             httpClient.BaseAddress = new Uri(baseAddress);
-        });
+        }).AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
+
         services.AddHttpClient<IBannerService, BannerService>(httpClient =>
         {
             httpClient.BaseAddress = new Uri(baseAddress);
-        });
+        }).AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
+
         services.AddHttpClient<ICategoryService, CategoryService>(httpClient =>
         {
             httpClient.BaseAddress = new Uri(baseAddress);
-        });
+        }).AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
+
         services.AddHttpClient<ICommentService, CommentService>(httpClient =>
         {
             httpClient.BaseAddress = new Uri(baseAddress);
-        });
+        }).AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
+
         services.AddHttpClient<IOrderService, OrderService>(httpClient =>
         {
             httpClient.BaseAddress = new Uri(baseAddress);
-        });
+        }).AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
+
         services.AddHttpClient<IProductService, ProductService>(httpClient =>
         {
             httpClient.BaseAddress = new Uri(baseAddress);
-        });
+        }).AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
+
         services.AddHttpClient<IRoleService, RoleService>(httpClient =>
         {
             httpClient.BaseAddress = new Uri(baseAddress);
@@ -49,19 +57,22 @@ public static class RegisterServices
         services.AddHttpClient<ISellerService, SellerService>(httpClient =>
         {
             httpClient.BaseAddress = new Uri(baseAddress);
-        });
+        }).AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
+
         services.AddHttpClient<ISliderService, SliderService>(httpClient =>
         {
             httpClient.BaseAddress = new Uri(baseAddress);
-        });
+        }).AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
+
         services.AddHttpClient<IUserAddressService, UserAddressService>(httpClient =>
         {
             httpClient.BaseAddress = new Uri(baseAddress);
-        });
+        }).AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
+
         services.AddHttpClient<IUserService, UserService>(httpClient =>
         {
             httpClient.BaseAddress = new Uri(baseAddress);
-        });
+        }).AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
 
         return services;
     }
