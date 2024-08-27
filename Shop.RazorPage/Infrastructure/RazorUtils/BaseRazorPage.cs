@@ -7,6 +7,7 @@ using Shop.RazorPage.Models;
 
 namespace Shop.RazorPage.Infrastructure.RazorUtils;
 
+[ValidateAntiForgeryToken]
 public class BaseRazorPage:PageModel
 {
     public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
