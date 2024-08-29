@@ -14,10 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\Users\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\Global\clientValidation.js" />
   </ItemGroup>
 

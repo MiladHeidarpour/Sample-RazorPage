@@ -1,4 +1,5 @@
-﻿using Shop.RazorPage.Services.Auth;
+﻿using Shop.RazorPage.Infrastructure.RazorUtils;
+using Shop.RazorPage.Services.Auth;
 using Shop.RazorPage.Services.Banners;
 using Shop.RazorPage.Services.Categories;
 using Shop.RazorPage.Services.Comments;
@@ -19,6 +20,7 @@ public static class RegisterDependencyServices
     {
         services.AddHttpContextAccessor();
         services.AddScoped<HttpClientAuthorizationDelegatingHandler>();
+        services.AddTransient<IRenderViewToString, RenderViewToString>();
 
         services.AddHttpClient<IAuthService, AuthService>(httpClient =>
         {

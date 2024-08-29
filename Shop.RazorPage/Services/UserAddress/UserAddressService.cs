@@ -1,6 +1,7 @@
 ﻿using Shop.RazorPage.Models.Command.UserAddresses;
 using Shop.RazorPage.Models.Response.UserAddresses;
 using Shop.RazorPage.Models;
+using Shop.RazorPage.ViewModels.Users.Addresses;
 
 namespace Shop.RazorPage.Services.UserAddress;
 

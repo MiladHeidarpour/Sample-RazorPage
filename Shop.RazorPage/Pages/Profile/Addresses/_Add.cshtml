@@ -1,4 +1,6 @@
-﻿<div class="modal fade" id="editAddressModal" tabindex="-1" aria-labelledby="editAddressModalLabel"
+﻿@model Shop.RazorPage.ViewModels.Users.Addresses.CreateUserAddressViewModel
+
+<div class="modal fade" id="editAddressModal" tabindex="-1" aria-labelledby="editAddressModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
@@ -9,62 +11,31 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="#">
+                <form method="post">
                     <div class="row">
                         <div class="col-lg-6 mb-3">
-                            <div class="text-sm text-muted mb-1">نام و نام خانوادگی:</div>
-                            <div class="text-dark font-weight-bold">
-                                <div class="form-element-row mb-0">
-                                    <input type="text" class="input-element" value="جلال بهرامی راد">
-                                </div>
-                            </div>
+                            @Html.EditorFor(m => m.Shire)
                         </div>
                         <div class="col-lg-6 mb-3">
-                            <div class="text-sm text-muted mb-1">شماره موبایل:</div>
-                            <div class="text-dark font-weight-bold">
-                                <div class="form-element-row mb-0">
-                                    <input type="text" class="input-element dir-ltr" value="090********">
-                                </div>
-                            </div>
+                            @Html.EditorFor(m => m.City)
+                        </div>
+                        <div class="col-lg-12 mb-3">
+                            @Html.EditorFor(m => m.PostalCode)
+                        </div>
+                        <div class="col-lg-12 mb-3">
+                            @Html.EditorFor(m => m.PostalAddress)
                         </div>
                         <div class="col-lg-6 mb-3">
-                            <div class="text-sm text-muted mb-1">استان:</div>
-                            <div class="text-dark font-weight-bold">
-                                <div class="form-element-row mb-0">
-                                    <select name="" id="" class="select2">
-                                        <option value="0">انتخاب استان</option>
-                                        <option value="1">خراسان شمالی</option>
-                                        <option value="2">تهران</option>
-                                        <option value="3">تبریز</option>
-                                        <option value="4">شیراز</option>
-                                        <option value="5">کرمان</option>
-                                    </select>
-                                </div>
-                            </div>
+                            @Html.EditorFor(m => m.Name)
                         </div>
                         <div class="col-lg-6 mb-3">
-                            <div class="text-sm text-muted mb-1">شهر:</div>
-                            <div class="text-dark font-weight-bold">
-                                <div class="form-element-row mb-0">
-                                    <select name="" id="" class="select2">
-                                        <option value="0">انتخاب شهر</option>
-                                        <option value="1">بجنورد</option>
-                                        <option value="2">شیروان</option>
-                                        <option value="3">اسفراین</option>
-                                        <option value="4">مانه و سملقان</option>
-                                        <option value="5">راز و جرگلان</option>
-                                    </select>
-                                </div>
-                            </div>
+                            @Html.EditorFor(m => m.Family)
                         </div>
-                        <div class="col-12 mb-3">
-                            <div class="text-sm text-muted mb-1">آدرس کامل:</div>
-                            <div class="text-dark font-weight-bold">
-                                <div class="form-element-row mb-0">
-                                    <textarea name="address" id="address" cols="30" rows="10"
-                                              class="input-element"></textarea>
-                                </div>
-                            </div>
+                        <div class="col-lg-6 mb-3">
+                            @Html.EditorFor(m => m.PhoneNumber)
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                            @Html.EditorFor(m => m.NationalCode)
                         </div>
                     </div>
                 </form>
