@@ -21,7 +21,31 @@ public class UserService : IUserService
 
     public async Task<ApiResult> EditUser(EditUserCommand command)
     {
-        var result = await _client.PutAsJsonAsync(ModuleName, command);
+        var formData = new MultipartFormDataContent();
+        formData.Add(new StringContent(command.Name), "Name");
+        formData.Add(new StringContent(command.Family), "Family");
+        formData.Add(new StringContent(command.Email), "Email");
+        formData.Add(new StringContent(command.PhoneNumber), "PhoneNumber");
+        formData.Add(new StringContent(command.Gender.ToString()), "Gender");
+
+        if(command.Avatar!=null)
+        formData.Add(new StreamContent(command.Avatar.OpenReadStream()), "Avatar");
+
+        var result = await _client.PutAsync(ModuleName, formData);
+        return await result.Content.ReadFromJsonAsync<ApiResult>();
+    }
+
+    public async Task<ApiResult> EditCurrentUser(EditUserCommand command)
+    {
+        var formData = new MultipartFormDataContent();
+        formData.Add(new StringContent(command.Name), "Name");
+        formData.Add(new StringContent(command.Family), "Family");
+        formData.Add(new StringContent(command.Email), "Email");
+        formData.Add(new StringContent(command.PhoneNumber), "PhoneNumber");
+        formData.Add(new StringContent(command.Gender.ToString()), "Gender");
+        formData.Add(new StreamContent(command.Avatar.OpenReadStream()), "Avatar");
+
+        var result = await _client.PutAsync($"{ModuleName}/Current", formData);
         return await result.Content.ReadFromJsonAsync<ApiResult>();
     }
 

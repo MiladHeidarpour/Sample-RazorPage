@@ -10,10 +10,15 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.33" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.33" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="ViewModels\Users\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Global\clientValidation.js" />
   </ItemGroup>
 
 </Project>
