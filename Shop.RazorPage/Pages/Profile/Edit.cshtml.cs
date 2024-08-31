@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.RazorPage.Models.Response.Users;
 using System.ComponentModel.DataAnnotations;
-using Common.Application.Validations.CustomValidation.IFormFile;
 using Microsoft.AspNetCore.Authorization;
 using Shop.RazorPage.Infrastructure.RazorUtils;
+using Shop.RazorPage.Infrastructure.Utils.CustomValidation.IFormFile;
 using Shop.RazorPage.Models.Command.Users;
 using Shop.RazorPage.Services.Users;
 

@@ -6,7 +6,7 @@ public class ApiResult
     public MetaData MetaData { get; set; }
     public bool IsReload { get; set; } = false;
 
-    public static ApiResult Error(string message,bool isReload=false)
+    public static ApiResult Error(string message, bool isReload = false)
     {
         return new ApiResult()
         {
@@ -32,7 +32,7 @@ public class ApiResult
         };
     }
 
-    public static ApiResult Success(string message,bool isReload=false)
+    public static ApiResult Success(string message, bool isReload = false)
     {
         return new ApiResult()
         {
@@ -73,7 +73,7 @@ public class ApiResult<TData>
             Data = data,
             MetaData = new MetaData()
             {
-                AppStatusCode = AppStatusCode.ServerError,
+                AppStatusCode = AppStatusCode.Success,
                 Message = "عملیات با موفقیت انجام شد",
             }
         };
