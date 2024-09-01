@@ -10,7 +10,6 @@ using Shop.RazorPage.Services.Users;
 namespace Shop.RazorPage.Pages.Profile;
 
 [BindProperties]
-[Authorize]
 public class EditModel : BaseRazorPage
 {
     [Display(Name = "عکس پروفایل")]

@@ -28,17 +28,20 @@ public class LoginModel : PageModel
 
     private readonly IAuthService _authService;
 
-    public IActionResult OnGet()
+
+    public string RedirectTo { get; set; }
+    public IActionResult OnGet(string redirectTo)
     {
         if (User.Identity.IsAuthenticated)
         {
             return Redirect("/");
         }
 
+        RedirectTo = redirectTo;
         return Page();
     }
 
-    public async Task<IActionResult> OnPost()
+    public async Task<IActionResult> OnPost(string redirectTo)
     {
         var result = await _authService.Login(new LoginCommand()
         {
@@ -55,6 +58,11 @@ public class LoginModel : PageModel
         var refreshToken = result.Data.RefreshToken;
         HttpContext.Response.Cookies.Append("token", token);
         HttpContext.Response.Cookies.Append("refreshToken", refreshToken);
+
+        if (!string.IsNullOrWhiteSpace(RedirectTo))
+        {
+            return LocalRedirect(RedirectTo);
+        }
         return Redirect("/");
     }
 }

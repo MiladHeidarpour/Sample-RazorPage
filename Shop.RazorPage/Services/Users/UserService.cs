@@ -22,16 +22,17 @@ public class UserService : IUserService
     public async Task<ApiResult> EditUser(EditUserCommand command)
     {
         var formData = new MultipartFormDataContent();
+        formData.Add(new StringContent(command.PhoneNumber), "PhoneNumber");
+
+        if (command.Avatar != null)
+            formData.Add(new StreamContent(command.Avatar.OpenReadStream()), "Avatar");
+
+        formData.Add(new StringContent(command.Gender.ToString()), "Gender");
         formData.Add(new StringContent(command.Name), "Name");
         formData.Add(new StringContent(command.Family), "Family");
         formData.Add(new StringContent(command.Email), "Email");
-        formData.Add(new StringContent(command.PhoneNumber), "PhoneNumber");
-        formData.Add(new StringContent(command.Gender.ToString()), "Gender");
 
-        if(command.Avatar!=null)
-        formData.Add(new StreamContent(command.Avatar.OpenReadStream()), "Avatar");
-
-        var result = await _client.PutAsync(ModuleName, formData);
+        var result = await _client.PutAsync($"{ModuleName}/current", formData);
         return await result.Content.ReadFromJsonAsync<ApiResult>();
     }
 
@@ -43,7 +44,7 @@ public class UserService : IUserService
         formData.Add(new StringContent(command.Email), "Email");
         formData.Add(new StringContent(command.PhoneNumber), "PhoneNumber");
         formData.Add(new StringContent(command.Gender.ToString()), "Gender");
-        formData.Add(new StreamContent(command.Avatar.OpenReadStream()), "Avatar");
+        formData.Add(new StreamContent(command.Avatar.OpenReadStream()), "Avatar", command.Avatar.FileName);
 
         var result = await _client.PutAsync($"{ModuleName}/Current", formData);
         return await result.Content.ReadFromJsonAsync<ApiResult>();

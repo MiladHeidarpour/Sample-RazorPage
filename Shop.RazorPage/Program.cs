@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -7,10 +8,22 @@ using Shop.RazorPage.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
 builder.Services.RegisterApiServices();
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+builder.Services.AddAuthorization(option =>
+{
+    option.AddPolicy("Account", builder =>
+    {
+        builder.RequireAuthenticatedUser();
+    });
+});
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation()
+    .AddRazorPagesOptions(option =>
+    {
+        option.Conventions.AuthorizeFolder("/Profile", "Account");
+    });
 
 builder.Services.AddAuthentication(option =>
 {
@@ -44,20 +57,34 @@ if (!app.Environment.IsDevelopment())
 app.Use(async (context, next) =>
 {
     var token = context.Request.Cookies["token"]?.ToString();
-    if (string.IsNullOrWhiteSpace(token)==false)
+    if (string.IsNullOrWhiteSpace(token) == false)
     {
-        context.Request.Headers.Append("Authorization",$"Bearer {token}");
+        context.Request.Headers.Append("Authorization", $"Bearer {token}");
     }
     await next();
 });
 
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
+
+app.Use(async (context, next) =>
+{
+    await next();
+    var status = context.Response.StatusCode;
+    if (status == 401)
+    {
+        var path = context.Request.Path;
+        context.Response.Redirect($"/Auth/Login?redirectTo={path}");
+    }
+});
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+
+
 
 app.MapRazorPages();
 

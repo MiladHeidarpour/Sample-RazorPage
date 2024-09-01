@@ -9,7 +9,6 @@ using Shop.RazorPage.Services.Users;
 namespace Shop.RazorPage.Pages.Profile;
 
 [BindProperties]
-[Authorize]
 public class ChangePasswordModel : BaseRazorPage
 {
     [Display(Name = "کلمه عبور فعلی")]
