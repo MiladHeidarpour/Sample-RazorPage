@@ -76,5 +76,15 @@ namespace Shop.RazorPage.Pages.Profile.Addresses
             var result = await _userAddressService.DeleteAddress(addressId);
             return RedirectAndShowAlert(result, RedirectToPage("Index"), RedirectToPage("Index"));
         }
+
+
+        public async Task<IActionResult> OnGetSetActiveAddress(long addressId)
+        {
+            return await AjaxTryCatch(async () =>
+            {
+                var result = await _userAddressService.SetActiveAddress(addressId);
+                return result;
+            });
+        }
     }
 }
