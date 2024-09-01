@@ -1,0 +1,35 @@
+﻿@model Shop.RazorPage.ViewModels.Users.Addresses.EditUserAddressViewModel
+
+
+<form method="post" data-ajax="true" asp-page="Index" asp-page-handler="EditAddress">    
+    @Html.HiddenFor(m=>m.Id)
+    <div class="row">
+        <div class="col-lg-6 mb-3">
+            @Html.EditorFor(m => m.Shire)
+        </div>
+        <div class="col-lg-6 mb-3">
+            @Html.EditorFor(m => m.City)
+        </div>
+        <div class="col-lg-12 mb-3">
+            @Html.EditorFor(m => m.PostalCode)
+        </div>
+        <div class="col-lg-12 mb-3">
+            @Html.EditorFor(m => m.PostalAddress)
+        </div>
+        <div class="col-lg-6 mb-3">
+            @Html.EditorFor(m => m.Name)
+        </div>
+        <div class="col-lg-6 mb-3">
+            @Html.EditorFor(m => m.Family)
+        </div>
+        <div class="col-lg-6 mb-3">
+            @Html.EditorFor(m => m.PhoneNumber)
+        </div>
+        <div class="col-lg-6 mb-3">
+            @Html.EditorFor(m => m.NationalCode)
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">
+        ذخیره تغییرات <i class="fad fa-money-check-edit"></i>
+    </button>
+</form>

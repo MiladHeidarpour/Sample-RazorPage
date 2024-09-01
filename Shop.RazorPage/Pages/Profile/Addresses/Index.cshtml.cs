@@ -1,6 +1,5 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Shop.RazorPage.Infrastructure.RazorUtils;
 using Shop.RazorPage.Models;
 using Shop.RazorPage.Models.Command.UserAddresses;
@@ -45,7 +44,37 @@ namespace Shop.RazorPage.Pages.Profile.Addresses
                 var model = _mapper.Map<CreateUserAddressCommand>(viewModel);
                 var result = await _userAddressService.CreateAddress(model);
                 return result;
-            },true);
+
+            }, true);
+        }
+
+        public async Task<IActionResult> OnGetShowEditPage(long addressId)
+        {
+            return await AjaxTryCatch(async () =>
+            {
+                var address = await _userAddressService.GetAddressById(addressId);
+                var model = _mapper.Map<EditUserAddressViewModel>(address);
+                var view = await _renderViewToString.RenderToStringAsync("_Edit", model, PageContext);
+                return ApiResult<string>.Success(view);
+            });
+        }
+
+        public async Task<IActionResult> OnPostEditAddress(EditUserAddressViewModel viewModel)
+        {
+            return await AjaxTryCatch(async () =>
+            {
+                var model = _mapper.Map<EditUserAddressCommand>(viewModel);
+                var result = await _userAddressService.EditAddress(model);
+                return result;
+
+            }, true);
+        }
+
+
+        public async Task<IActionResult> OnPostAsync(long addressId)
+        {
+            var result = await _userAddressService.DeleteAddress(addressId);
+            return RedirectAndShowAlert(result, RedirectToPage("Index"), RedirectToPage("Index"));
         }
     }
 }

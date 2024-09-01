@@ -4,3 +4,12 @@
 .input-validation-error{
     border-color:red !important;
 }
+
+.delete-address{
+    position:absolute;
+    bottom:15px;
+}
+.delete-address button{
+    color:red;
+    border-block-color:red;
+}
