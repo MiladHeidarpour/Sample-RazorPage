@@ -1,6 +1,6 @@
 ﻿namespace Shop.RazorPage.Models.Response.Sliders;
 
-public class SliderDto
+public class SliderDto:BaseDto
 {
     public string Title { get; set; }
     public string Link { get; set; }

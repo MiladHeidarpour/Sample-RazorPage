@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="/admin/vendors/css/extensions/swiper.min.css">
     <link rel="stylesheet" type="text/css" href="/admin/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/admin/css/bootstrap-extended.css">
+    <link rel="stylesheet" href="/assets/css/plugins/sweetalert2.min.css">
     <link rel="stylesheet" type="text/css" href="/admin/css/colors.css">
     <link rel="stylesheet" type="text/css" href="/admin/css/components.css">
     <link rel="stylesheet" type="text/css" href="/admin/css/themes/dark-layout.css">
@@ -28,7 +29,9 @@
     <div class="app-content content">
         <div class="content-overlay"></div>
         <div class="content-wrapper">
-            @RenderBody()
+            <div class="content-body">
+                @RenderBody()
+            </div>
         </div>
     </div>
 
@@ -47,7 +50,10 @@
     <script src="/admin/js/scripts/components.js"></script>
     <script src="/admin/js/scripts/footer.js"></script>
     <script src="/admin/js/scripts/customizer.js"></script>
-    <script src="/admin/js/scripts/pages/dashboard-ecommerce.js"></script>
-    @await RenderSectionAsync("Scripts",false)
+    <script src="/assets/js/plugins/sweetalert2.all.min.js"></script>
+    <script src="/global.js"></script>
+    <partial name="Shared/_ValidationScriptsPartial" />
+    <script src="/global/clientValidation.js"></script>
+    @await RenderSectionAsync("Scripts", false)
 </body>
 </html>

@@ -1,12 +1,12 @@
 ﻿using System.Security.Claims;
 
-namespace Common.AspNetCore;
+namespace Shop.RazorPage.Infrastructure;
 
 public static class ClaimUtils
 {
     public static long GetUserId(this ClaimsPrincipal principal)
     {
-        if (principal==null)
+        if (principal == null)
         {
             throw new ArgumentNullException(nameof(principal));
         }
