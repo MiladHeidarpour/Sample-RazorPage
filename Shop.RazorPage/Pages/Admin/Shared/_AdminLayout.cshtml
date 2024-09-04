@@ -54,6 +54,9 @@
     <script src="/global.js"></script>
     <partial name="Shared/_ValidationScriptsPartial" />
     <script src="/global/clientValidation.js"></script>
+    <div id="ajax-token">
+        @Html.AntiForgeryToken()
+    </div>
     @await RenderSectionAsync("Scripts", false)
 </body>
 </html>

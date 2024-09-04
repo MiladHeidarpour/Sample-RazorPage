@@ -46,7 +46,7 @@ public class SliderService : ISliderService
 
     public async Task<SliderDto?> GetSliderById(long sliderId)
     {
-        var result = await _client.GetFromJsonAsync<ApiResult<SliderDto?>>(ModuleName);
+        var result = await _client.GetFromJsonAsync<ApiResult<SliderDto?>>($"{ModuleName}/{sliderId}");
         return result.Data;
     }
 

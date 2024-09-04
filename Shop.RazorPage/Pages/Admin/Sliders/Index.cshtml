@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{handler?}"
 @using Shop.Application._Utilities
 @model Shop.RazorPage.Pages.Admin.Sliders.IndexModel
 @{
@@ -23,11 +23,13 @@
                     <td>
                         <img src="@Directories.GetSliderImage(item.ImageName)" style="max-width:250px" />
                     </td>
-                    <td>@item.ImageName</td>
+                    <td>@item.Title</td>
                     <td>@item.Link</td>
                     <td>
-                        <a asp-page="Edit" asp-route-id="@item.Id">ویرایش</a>
-                        <a asp-page="Delete" asp-route-id="@item.Id">حذف</a>
+                        <a asp-page="Edit" class="btn btn-primary btn-sm" asp-route-id="@item.Id">ویرایش</a>
+                        <delete-item url="@Url.Page("Index", "DeleteSlider", new {sliderId = item.Id})">
+                            حذف
+                        </delete-item>
                     </td>
                 </tr>
             }
