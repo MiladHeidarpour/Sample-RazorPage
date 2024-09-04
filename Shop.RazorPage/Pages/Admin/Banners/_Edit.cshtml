@@ -1,0 +1,20 @@
+﻿@model Shop.RazorPage.Models.Command.Banners.EditBannerCommand
+
+<form method="post" data-ajax="true" asp-page="Index" asp-page-handler="EditBanner" enctype="multipart/form-data">
+    <div class="row">
+        @Html.HiddenFor(m=>m.Id)
+
+        <div class="col-md-6">
+            @Html.EditorFor(m => m.Link)
+        </div>
+        <div class="col-md-6">
+            @Html.EditorFor(m => m.Position)
+        </div>
+        <div class="col-md-12">
+            @Html.EditorFor(m => m.ImageFile)
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">
+        ذخیره تغییرات <i class="fad fa-money-check-edit"></i>
+    </button>
+</form>

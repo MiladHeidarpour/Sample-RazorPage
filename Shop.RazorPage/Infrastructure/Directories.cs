@@ -1,6 +1,4 @@
-﻿using Shop.RazorPage.Infrastructure;
-
-namespace Shop.Application._Utilities;
+﻿namespace Shop.RazorPage.Infrastructure;
 
 public class Directories
 {
@@ -15,5 +13,10 @@ public class Directories
     public static string GetSliderImage(string imageName)
     {
         return $"{SiteSettings.ServerPath}{SliderImages}/{imageName}";
+    }
+
+    public static string GetBannerImage(string imageName)
+    {
+        return $"{SiteSettings.ServerPath}{BannerImages}/{imageName}";
     }
 }

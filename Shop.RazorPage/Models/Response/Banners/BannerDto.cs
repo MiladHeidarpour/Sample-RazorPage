@@ -1,6 +1,6 @@
 ﻿namespace Shop.RazorPage.Models.Response.Banners;
 
-public class BannerDto
+public class BannerDto:BaseDto
 {
     public string Link { get; set; }
     public string ImageName { get; set; }
