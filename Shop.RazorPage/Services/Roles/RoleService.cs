@@ -7,7 +7,7 @@ namespace Shop.RazorPage.Services.Roles;
 public class RoleService : IRoleService
 {
     private readonly HttpClient _client;
-    private const string ModuleName = "role";
+    private const string ModuleName = "Role";
     public RoleService(HttpClient client)
     {
         _client = client;
@@ -19,7 +19,7 @@ public class RoleService : IRoleService
         return await result.Content.ReadFromJsonAsync<ApiResult>();
     }
 
-    public async Task<ApiResult> EditRole(CreateRoleCommand command)
+    public async Task<ApiResult> EditRole(EditRoleCommand command)
     {
         var result = await _client.PutAsJsonAsync(ModuleName, command);
         return await result.Content.ReadFromJsonAsync<ApiResult>();
