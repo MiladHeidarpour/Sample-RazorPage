@@ -1,0 +1,26 @@
+﻿@page "{parentId?}"
+@model Shop.RazorPage.Pages.Admin.Categories.AddModel
+@{
+    ViewData["Title"] = "افزودن گروه ها";
+}
+<h3>@ViewData["Title"]</h3>
+
+<form class="card" method="post">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                @Html.EditorFor(m => m.Title)
+            </div>
+            <div class="col-md-6">
+                @Html.EditorFor(m => m.Slug)
+            </div>
+            <div class="col-md-6">
+                @Html.EditorFor(m => m.SeoData)
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-right">
+        <cancel></cancel>
+        <submit />
+    </div>
+</form>

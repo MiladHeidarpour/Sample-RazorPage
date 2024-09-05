@@ -1,0 +1,66 @@
+﻿@page
+@model Shop.RazorPage.Pages.Admin.Categories.IndexModel
+@{
+    ViewData["Title"] = "مدیریت گروه ها";
+}
+<h3>@ViewData["Title"]</h3>
+<a asp-page="Add" class="btn btn-success mb-2">افزودن گروه</a>
+<div class="table-responsive card card-body p-0">
+    <table class="table table-bordered mb-0">
+        <thead>
+            <tr>
+                <th>عنوان</th>
+                <th>اسلاگ</th>
+                <th>عملیات</th>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Categories)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.Slug</td>
+                    <td>
+                        <a class="bt btn-primary btn-sm" asp-page="Edit" asp-route-id="@item.Id">ویرایش</a>
+                        <a class="bt btn-success btn-sm" asp-page="Add" asp-route-parentId="@item.Id">افزودن زیر گروه</a>
+                        <delete-item url="@Url.Page("Index","Delete",new {id=item.Id})">حذف</delete-item>
+                    </td>
+                </tr>
+                if (item.Childs.Any() == true)
+                {
+                    @foreach (var child in item.Childs)
+                    {
+                        <tr>
+                            <td>@child.Title</td>
+                            <td>@child.Slug</td>
+                            <td>
+                                <a class="bt btn-primary btn-sm" asp-page="Edit" asp-route-id="@child.Id">ویرایش</a>
+                                <a class="bt btn-success btn-sm" asp-page="Add" asp-route-parentId="@child.Id">افزودن زیر گروه</a>
+                                <delete-item url="@Url.Page("Index","Delete",new {id=child.Id})">حذف</delete-item>
+                            </td>
+                        </tr>
+                        if (child.Childs.Any()==true)
+                        {
+                            foreach (var secChild in child.Childs)
+                            {
+                                <tr>
+                                    <td>@secChild.Title</td>
+                                    <td>@secChild.Slug</td>
+                                    <td>
+                                        <a class="bt btn-primary btn-sm" asp-page="Edit" asp-route-id="@secChild.Id">ویرایش</a>
+                                        <delete-item url="@Url.Page("Index","Delete",new {id=secChild.Id})">حذف</delete-item>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                }
+            }
+            @if (Model.Categories.Any() == false)
+            {
+                <tr>
+                    <td colspan="4" class="text-center">موردی برای نمایش وجود ندارد</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
