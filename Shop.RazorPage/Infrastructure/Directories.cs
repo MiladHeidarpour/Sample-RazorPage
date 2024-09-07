@@ -19,4 +19,14 @@ public class Directories
     {
         return $"{SiteSettings.ServerPath}{BannerImages}/{imageName}";
     }
+
+    public static string GetProductImage(string imageName)
+    {
+        return $"{SiteSettings.ServerPath}{ProductImages}/{imageName}";
+    }
+
+    public static string GetProductGalleryImage(string imageName)
+    {
+        return $"{SiteSettings.ServerPath}{ProductGalleryImage}/{imageName}";
+    }
 }

@@ -68,21 +68,6 @@ function Warning(Title, description, isReload = false) {
         }
     });
 }
-function getCookie(cname) {
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return decodeURIComponent(c.substring(name.length, c.length));
-        }
-    }
-    return "";
-}
 
 function DeleteItem(url, description) {
     Swal.fire({
@@ -101,7 +86,7 @@ function DeleteItem(url, description) {
                 data: {
                     __RequestVerificationToken: token
                 },
-                beforeSend: function () {
+                beforeSend: function (xhr) {
                     $(".loading").show();
                 },
                 complete: function () {
@@ -118,11 +103,27 @@ function DeleteItem(url, description) {
         }
     });
 }
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return decodeURIComponent(c.substring(name.length, c.length));
+        }
+    }
+    return "";
+}
 
 function deleteCookie(cookieName) {
     document.cookie = `${cookieName}=;expires=Thu, 01 Jan 1970;path=/`;
 }
 $(document).ready(function () {
+    loadCkeditor4();
     var result = getCookie("SystemAlert");
     if (result) {
         result = JSON.parse(result);
@@ -134,7 +135,7 @@ $(document).ready(function () {
         deleteCookie("SystemAlert");
     }
     if ($(".select2")) {
-        $(".select2").select2()
+        $(".select2").select2();
     }
 });
 
@@ -173,22 +174,23 @@ function OpenModal(url, name, title) {
             $('#' + name + ' .modal-dialog').removeClass('modal-lg modal-xl modal-sm modal-full');
             $('#' + name + ' .modal-dialog').addClass(modalSize);
 
-            /*loadCkeditor4();*/
+            loadCkeditor4();
             const form = $("#" + name + ' form');
             if (form) {
                 $.validator.unobtrusive.parse(form);
             }
         }
     });
+
 }
 
 function CallBackHandler(result) {
     if (result.Status == 1) {
         Success(result.Title, result.Message, result.IsReloadPage);
-    }
-    else {
+    } else {
         ErrorAlert(result.Title, result.Message, result.IsReloadPage);
     }
+
 }
 $(document).on("submit",
     'form[data-ajax="true"]',
@@ -230,3 +232,16 @@ $(document).on("submit",
         }
         return false;
     });
+
+
+function loadCkeditor4() {
+    if (!document.getElementById("ckeditor4"))
+        return;
+
+    $("body").prepend(`<script src="/admin/ckeditor4/ckeditor/ckeditor.js"></script>`);
+    setTimeout(() => {
+        CKEDITOR.replace('ckeditor4', {
+            customConfig: '/admin/ckeditor4/ckeditor/config.js'
+        });
+    }, 500);
+}
