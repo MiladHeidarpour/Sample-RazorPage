@@ -5,7 +5,7 @@
 @inject ICategoryService _categoryService
 @{
     ViewData["Title"] = "ویرایش محصول";
-    ViewData["Selected"] = "products_product";
+    ViewData["Selected"] = "Products";
 
     var categories = await _categoryService.GetCategories();
 }

@@ -4,6 +4,8 @@
 @model Shop.RazorPage.Pages.Admin.Sliders.EditModel
 @{
     ViewData["Title"] = "ویرایش اسلایدر";
+    ViewData["Selected"] = "Sliders";
+
 }
 <form method="post" class="card" enctype="multipart/form-data">
     @Html.HiddenFor(f => f.ImageName)

@@ -4,6 +4,7 @@
 @model Shop.RazorPage.Pages.Admin.Banners.IndexModel
 @{
     ViewData["Title"] = "مدیریت بنر ها";
+    ViewData["Selected"] = "Banners";
 }
 <h3>@ViewData["Title"]</h3>
 <open-modal class="btn btn-success mb-2" modal-title="افزودن بنر" url="@Url.Page("Index","RenderAddPage")" >افزودن بنر</open-modal>
