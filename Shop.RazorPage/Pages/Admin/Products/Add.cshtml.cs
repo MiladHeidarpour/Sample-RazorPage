@@ -36,7 +36,7 @@ public class AddModel : BaseRazorPage
 
     [Display(Name = "توضیحات")]
     [Required(ErrorMessage = "{0} را وارد کنید")]
-    [UIHint("CKEditor4")]
+    [UIHint($"CKEditor4")]
     public string Description { get; set; }
 
 

@@ -9,7 +9,7 @@ namespace Shop.RazorPage.Services.Products;
 public class ProductService : IProductService
 {
     private readonly HttpClient _client;
-    private const string ModuleName = "product";
+    private const string ModuleName = "Product";
     public ProductService(HttpClient client)
     {
         _client = client;
