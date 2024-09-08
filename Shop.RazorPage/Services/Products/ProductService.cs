@@ -74,14 +74,14 @@ public class ProductService : IProductService
         formData.Add(new StringContent(command.Sequence.ToString()), "Sequence");
         formData.Add(new StringContent(command.ProductId.ToString()), "ProductId");
 
-        var result = await _client.PostAsync($"{ModuleName}/images", formData);
+        var result = await _client.PostAsync($"{ModuleName}/images/Add", formData);
         return await result.Content.ReadFromJsonAsync<ApiResult>();
     }
 
     public async Task<ApiResult> DeleteProductImage(DeleteProductImageCommand command)
     {
         var json = JsonConvert.SerializeObject(command);
-        var message = new HttpRequestMessage(HttpMethod.Delete, $"{ModuleName}/images")
+        var message = new HttpRequestMessage(HttpMethod.Delete, $"{ModuleName}/images/Remove")
         {
             Content = new StringContent(json, Encoding.UTF8, "application/json")
         };
