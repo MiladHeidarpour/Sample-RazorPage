@@ -18,4 +18,8 @@
     <None Include="wwwroot\Global\clientValidation.js" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\SellerPanel\Orders\" />
+  </ItemGroup>
+
 </Project>

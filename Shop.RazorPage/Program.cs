@@ -18,11 +18,17 @@ builder.Services.AddAuthorization(option =>
     {
         builder.RequireAuthenticatedUser();
     });
+    option.AddPolicy("SellerPanel", builder =>
+    {
+        builder.RequireAuthenticatedUser();
+        builder.RequireAssertion(f=>f.User.Claims.Any(c=>c.Type==ClaimTypes.Role&&c.Value.Contains("Seller")));
+    });
 });
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation()
     .AddRazorPagesOptions(option =>
     {
         option.Conventions.AuthorizeFolder("/Profile", "Account");
+        option.Conventions.AuthorizeFolder("/SellerPanel", "SellerPanel");
     });
 
 builder.Services.AddAuthentication(option =>
