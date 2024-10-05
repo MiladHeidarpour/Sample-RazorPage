@@ -1,18 +1,20 @@
 ﻿@page
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @using Shop.RazorPage.Models.Response.Products
 @using Shop.RazorPage.Services.Products
-@model Shop.RazorPage.Pages.SellerPanel.Inventories.AddModel
+@using Shop.RazorPage.TagHelpers
+@model Shop.RazorPage.Models.Command.Sellers.EditSellerInventoryCommand
 @inject IProductService _ProductService;
 @{
     var product = await _ProductService.GetProductByFilter(new ProductFilterParams()
-    {
-        PageId = 1,
-        Take = 1000,
-    });
+            {
+                PageId = 1,
+                Take = 1000,
+            });
 }
-<form method="post" class="card">
-    <div class="row card-body">
-        <div class="col-md-6">
+<form method="post" asp-page="Index" data-ajax="true">
+    <div class="row">
+        @*  <div class="col-md-6">
             <label>انتخاب محصول</label>
             <select asp-for="ProductId" class="form-control select2">
                 @foreach (var item in product.Data)
@@ -20,7 +22,9 @@
                     <option value="@item.Id">@item.Title</option>
                 }
             </select>
-        </div>
+        </div> *@
+        @Html.HiddenFor(m=>m.InventoryId)
+        @Html.HiddenFor(m=>m.SellerId)
 
         <div class="col-md-6">
             @Html.EditorFor(m => m.Price)
@@ -31,11 +35,10 @@
         </div>
 
         <div class="col-md-6">
-            @Html.EditorFor(m => m.PercentageDiscount)
+            @Html.EditorFor(m => m.DiscountPercentage)
         </div>
     </div>
     <div class="card-footer text-left">
-        <cancel></cancel>
         <submit />
     </div>
 </form>
