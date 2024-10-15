@@ -21,7 +21,7 @@ builder.Services.AddAuthorization(option =>
     option.AddPolicy("SellerPanel", builder =>
     {
         builder.RequireAuthenticatedUser();
-        builder.RequireAssertion(f=>f.User.Claims.Any(c=>c.Type==ClaimTypes.Role&&c.Value.Contains("Seller")));
+        builder.RequireAssertion(f => f.User.Claims.Any(c => c.Type == ClaimTypes.Role && c.Value.Contains("Seller")));
     });
 });
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation()
@@ -30,6 +30,13 @@ builder.Services.AddRazorPages().AddRazorRuntimeCompilation()
         option.Conventions.AuthorizeFolder("/Profile", "Account");
         option.Conventions.AuthorizeFolder("/SellerPanel", "SellerPanel");
     });
+
+//builder.Services.AddMemoryCache();
+//builder.Services.AddDistributedMemoryCache();
+builder.Services.AddDistributedRedisCache(options =>
+{
+    options.Configuration = "localhost:6379";
+});
 
 builder.Services.AddAuthentication(option =>
 {
