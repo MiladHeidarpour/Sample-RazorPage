@@ -1,6 +1,5 @@
 using System.Security.Claims;
 using System.Text;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Shop.RazorPage.Infrastructure;
@@ -30,13 +29,6 @@ builder.Services.AddRazorPages().AddRazorRuntimeCompilation()
         option.Conventions.AuthorizeFolder("/Profile", "Account");
         option.Conventions.AuthorizeFolder("/SellerPanel", "SellerPanel");
     });
-
-//builder.Services.AddMemoryCache();
-//builder.Services.AddDistributedMemoryCache();
-builder.Services.AddDistributedRedisCache(options =>
-{
-    options.Configuration = "localhost:6379";
-});
 
 builder.Services.AddAuthentication(option =>
 {
