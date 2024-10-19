@@ -3,6 +3,7 @@ using Shop.RazorPage.Services.Auth;
 using Shop.RazorPage.Services.Banners;
 using Shop.RazorPage.Services.Categories;
 using Shop.RazorPage.Services.Comments;
+using Shop.RazorPage.Services.MainPage;
 using Shop.RazorPage.Services.Orders;
 using Shop.RazorPage.Services.Products;
 using Shop.RazorPage.Services.Roles;
@@ -22,6 +23,7 @@ public static class RegisterDependencyServices
         services.AddScoped<HttpClientAuthorizationDelegatingHandler>();
         services.AddTransient<IRenderViewToString, RenderViewToString>();
         services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
+        services.AddScoped<IMainPageService, MainPageService>();
 
         services.AddHttpClient<IAuthService, AuthService>(httpClient =>
         {
