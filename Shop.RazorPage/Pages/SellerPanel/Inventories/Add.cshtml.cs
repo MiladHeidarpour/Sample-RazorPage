@@ -24,7 +24,7 @@ public class AddModel : BaseRazorPage
     [Display(Name = "درصد تخفیف")]
     [Required(ErrorMessage = "{0} را وارد کنید")]
     [Range(0,99,ErrorMessage = "درصد تخفیف نامعتبر است")]
-    public int PercentageDiscount { get; set; }
+    public int DiscountPercentage { get; set; }
 
 
 
@@ -51,7 +51,7 @@ public class AddModel : BaseRazorPage
             ProductId = ProductId,
             Count = Count,
             Price = Price,
-            PercentageDiscount = PercentageDiscount,
+            DiscountPercentage = DiscountPercentage,
         });
 
         return RedirectAndShowAlert(result,RedirectToPage("Index"));

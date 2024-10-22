@@ -10,7 +10,7 @@ public class CommentFilterParams : BaseFilterParam
     public int Id { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
-    public int CommentStatus { get; set; }
+    public CommentStatus CommentStatus { get; set; }
 }
 public class CommentDto : BaseDto
 {

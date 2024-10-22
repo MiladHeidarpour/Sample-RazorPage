@@ -74,7 +74,7 @@ public class ProductService : IProductService
         formData.Add(new StringContent(command.Sequence.ToString()), "Sequence");
         formData.Add(new StringContent(command.ProductId.ToString()), "ProductId");
 
-        var result = await _client.PostAsync($"{ModuleName}/images/Add", formData);
+        var result = await _client.PostAsync($"{ModuleName}/Images/Add", formData);
         return await result.Content.ReadFromJsonAsync<ApiResult>();
     }
 
@@ -101,6 +101,12 @@ public class ProductService : IProductService
         return result?.Data;
     }
 
+    public async Task<SingleProductDto?> GetSingleProductBySlug(string slug)
+    {
+        var result = await _client.GetFromJsonAsync<ApiResult<SingleProductDto?>>($"{ModuleName}/single/{slug}");
+        return result?.Data;
+    }
+
     public async Task<ProductFilterResult> GetProductByFilter(ProductFilterParams filterParams)
     {
         var url = $"{ModuleName}?pageId={filterParams.PageId}&take={filterParams.Take}" +
@@ -115,7 +121,11 @@ public class ProductService : IProductService
     {
         var url = $"{ModuleName}/shop?pageId={filterParams.PageId}&take={filterParams.Take}" +
                   $"&categorySlug={filterParams.CategorySlug}&onlyAvailableProducts={filterParams.OnlyAvailableProducts}" +
-                  $"&search={filterParams.Search}&SearchOrderBy={filterParams.SearchOrderBy}&JustHasDiscount={filterParams.JustHasDiscount}";
+                  $"&search={filterParams.Search}&SearchOrderBy={filterParams.SearchOrderBy}";
+        if (filterParams.JustHasDiscount!=null)
+        {
+            url += $"&JustHasDiscount={filterParams.JustHasDiscount}";
+        }
 
         var result = await _client.GetFromJsonAsync<ApiResult<ProductShopResult>>(url);
         return result?.Data;
