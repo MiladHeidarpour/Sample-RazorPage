@@ -1,4 +1,5 @@
-﻿using Shop.RazorPage.Infrastructure.RazorUtils;
+﻿using Shop.RazorPage.Infrastructure.CookieUtils;
+using Shop.RazorPage.Infrastructure.RazorUtils;
 using Shop.RazorPage.Services.Auth;
 using Shop.RazorPage.Services.Banners;
 using Shop.RazorPage.Services.Categories;
@@ -24,6 +25,8 @@ public static class RegisterDependencyServices
         services.AddTransient<IRenderViewToString, RenderViewToString>();
         services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
         services.AddScoped<IMainPageService, MainPageService>();
+        services.AddCookieManager();
+        services.AddScoped<ShopCardCookieManger>();
 
         services.AddHttpClient<IAuthService, AuthService>(httpClient =>
         {

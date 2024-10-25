@@ -39,7 +39,7 @@ public class OrderService : IOrderService
 
     public async Task<OrderDto?> GetCurrentOrder()
     {
-        var result = await _client.GetFromJsonAsync<ApiResult<OrderDto?>>($"order/current");
+        var result = await _client.GetFromJsonAsync<ApiResult<OrderDto?>>($"Order/Current");
         return result?.Data;
     }
 

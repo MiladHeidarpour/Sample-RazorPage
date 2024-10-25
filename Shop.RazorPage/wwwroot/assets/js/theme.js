@@ -544,30 +544,30 @@
     /*====== end SwiperSlider ======*/
 
     /*====== Product +/- ======*/
-    HAMTA.Quantity = function () {
-        $('.num-in span').click(function () {
-            var $input = $(this).parents('.num-block').find('input.in-num');
-            if ($(this).hasClass('minus')) {
-                var count = parseFloat($input.val()) - 1;
-                count = count < 1 ? 1 : count;
-                if (count < 2) {
-                    $(this).addClass('dis');
-                } else {
-                    $(this).removeClass('dis');
-                }
-                $input.val(count);
-            } else {
-                var count = parseFloat($input.val()) + 1;
-                $input.val(count);
-                if (count > 1) {
-                    $(this).parents('.num-block').find(('.minus')).removeClass('dis');
-                }
-            }
+    //HAMTA.Quantity = function () {
+    //    $('.num-in span').click(function () {
+    //        var $input = $(this).parents('.num-block').find('input.in-num');
+    //        if ($(this).hasClass('minus')) {
+    //            var count = parseFloat($input.val()) - 1;
+    //            count = count < 1 ? 1 : count;
+    //            if (count < 2) {
+    //                $(this).addClass('dis');
+    //            } else {
+    //                $(this).removeClass('dis');
+    //            }
+    //            $input.val(count);
+    //        } else {
+    //            var count = parseFloat($input.val()) + 1;
+    //            $input.val(count);
+    //            if (count > 1) {
+    //                $(this).parents('.num-block').find(('.minus')).removeClass('dis');
+    //            }
+    //        }
 
-            $input.change();
-            return false;
-        });
-    };
+    //        $input.change();
+    //        return false;
+    //    });
+    //};
     /* end Product +/- ======*/
 
     /*====== Filter price ======*/
@@ -676,6 +676,6 @@
 
     $(window).on("load", function () {});
     $(document).ready(function () {
-        HAMTA.StickyHeader(), HAMTA.CategoryList(), HAMTA.ResponsiveHeader(), HAMTA.SearchResult(), HAMTA.SweetAlert(), HAMTA.NiceScroll(), HAMTA.BackToTop(), HAMTA.Tooltip(), HAMTA.CollapseWidget(), HAMTA.ProductAddTo(), HAMTA.Select2(), HAMTA.SwiperSlider(), HAMTA.Quantity(), HAMTA.FilterPrice(), HAMTA.FilterOptions(), HAMTA.StickySidebar(), HAMTA.FilterOptionsSidebar(), HAMTA.ResponsiveTabOrderList(), HAMTA.ZoomImage(), HAMTA.ColorSwitcher();
+        HAMTA.StickyHeader(), HAMTA.CategoryList(), HAMTA.ResponsiveHeader(), HAMTA.SearchResult(), HAMTA.SweetAlert(), HAMTA.NiceScroll(), HAMTA.BackToTop(), HAMTA.Tooltip(), HAMTA.CollapseWidget(), HAMTA.ProductAddTo(), HAMTA.Select2(), HAMTA.SwiperSlider(), HAMTA.FilterPrice(), HAMTA.FilterOptions(), HAMTA.StickySidebar(), HAMTA.FilterOptionsSidebar(), HAMTA.ResponsiveTabOrderList(), HAMTA.ZoomImage(), HAMTA.ColorSwitcher()/*HAMTA.Quantity()*/;
     });
 })(jQuery);

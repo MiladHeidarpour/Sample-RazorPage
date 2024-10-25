@@ -26,7 +26,6 @@ public class ProductModel : BaseRazorPage
     }
 
     public SingleProductDto SingleProduct { get; set; }
-    public List<CommentDto> CommentDtos { get; set; }
     public async Task<IActionResult> OnGet(string slug)
     {
         var product = await _productService.GetSingleProductBySlug(slug);

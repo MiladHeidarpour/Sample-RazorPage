@@ -1,27 +1,28 @@
 ﻿@page "{slug}/{handler?}"
 @using Shop.RazorPage.Infrastructure
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Shop.RazorPage.Infrastructure
 @model Shop.RazorPage.Pages.ProductModel
 @{
+    var inventory = Model.SingleProduct.InventoryDtos.OrderBy(b => b.TotalPrice).FirstOrDefault();
     var title = Model.SingleProduct.ProductDto.SeoData.MetaTitle;
     if (string.IsNullOrWhiteSpace(title))
-    {
         title = Model.SingleProduct.ProductDto.Title;
-    }
-    ViewData["Title"] = title;
-    var inventory = Model.SingleProduct.InventoryDtos.OrderBy(f => f.TotalPrice).FirstOrDefault();
+    ViewData["title"] = title;
 }
-<input type="hidden" id="productId" value="@Model.SingleProduct.ProductDto.Id"/>
-<input type="hidden" id="slug" value="@Model.SingleProduct.ProductDto.Slug"/>
+<input type="hidden" id="productId" value="@Model.SingleProduct.ProductDto.Id" />
 <div class="row mb-1">
+
     <div class="col-12">
         <div class="breadcrumb mb-1">
             <nav>
                 <a href="/">فروشگاه اینترنتی</a>
                 <a href="/search?category=@Model.SingleProduct.ProductDto.Category.Slug">@Model.SingleProduct.ProductDto.Category.Title</a>
-                <a href="/search?category=@Model.SingleProduct.ProductDto.SubCategory.Slug">@Model.SingleProduct.ProductDto.SubCategory.Title</a>
+                <a href="/search?category=@Model.SingleProduct.ProductDto.Category.Slug">@Model.SingleProduct.ProductDto.SubCategory.Title</a>
                 @if (Model.SingleProduct.ProductDto.SecondarySubCategory != null)
                 {
                     <a href="/search?category=@Model.SingleProduct.ProductDto.SecondarySubCategory.Slug">@Model.SingleProduct.ProductDto.SecondarySubCategory.Title</a>
+
                 }
                 <a>@Model.SingleProduct.ProductDto.Title</a>
             </nav>
@@ -70,28 +71,10 @@
                 </div>
                 <ul class="product--actions">
                     <li>
-                        <!-- در صورت نیاز به استفاده از فرم از کد زیر استفاده کنید -->
-                        <!-- <form action="">
-                            <button class="add-to-favorite"><i class="fas fa-heart"></i></button>
-                        </form> -->
-                        <a href="#" class="is-action add-to-favorite"><i class="fas fa-heart"></i></a>
-                        <span class="tooltip--action">افزودن به علاقمندی</span>
-                    </li>
-                    <li>
                         <a href="#" data-toggle="modal" data-target="#shareLinkModal">
                             <i class="fas fa-share-alt"></i>
                         </a>
                         <span class="tooltip--action">اشتراک گذاری</span>
-                    </li>
-                    <li>
-                        <a href="#" class="is-action add-to-compare"><i class="fas fa-adjust"></i></a>
-                        <span class="tooltip--action">افزودن به لیست مقایسه</span>
-                    </li>
-                    <li>
-                        <a href="#" data-toggle="modal" data-target="#chartModal">
-                            <i class="fas fa-chart-area"></i>
-                        </a>
-                        <span class="tooltip--action">نمودار قیمت</span>
                     </li>
                 </ul>
             </div>
@@ -104,13 +87,13 @@
             </div>
             <div class="product-params-special">
                 <ul data-title="ویژگی‌های محصول">
-
                     @foreach (var item in Model.SingleProduct.ProductDto.Specifications.Take(4))
                     {
                         <li>
                             <span>@item.Key:</span>
                             <span>@item.Value</span>
                         </li>
+
                     }
                 </ul>
             </div>
@@ -177,6 +160,7 @@
                     </div>
                 </div>
             }
+
         </div>
     </div>
     <div class="py-3">
@@ -255,7 +239,6 @@
         </ul>
     </div>
 }
-<!-- product-tab-content -->
 <div class="row mb-5">
     <div class="col-12">
         <div class="product-tab-content">
@@ -299,12 +282,15 @@
                                             <span>@item.Key</span>
                                         </div>
                                         <div class="params-list-value">
-                                            <span>@item.Value</span>
+                                            <span>
+                                                @item.Value
+                                            </span>
                                         </div>
                                     </li>
                                 }
                             </ul>
                         </section>
+
                     </div>
                 </div>
                 <div class="tab-pane fade" id="productComments" role="tabpanel"
@@ -314,13 +300,13 @@
                         @if (Model.User.Identity.IsAuthenticated)
                         {
                             <form method="post">
-                                @Html.HiddenFor(f=>f.SingleProduct.ProductDto.Id)
+                                @Html.HiddenFor(f => f.SingleProduct.ProductDto.Id)
                                 <div class="row align-items-center">
                                     <div class="col-12">
                                         <div class="form-element-row">
-                                            <label for="phone-number" class="label-element">نظر شما</label>
+                                            <label class="label-element">نظر شما</label>
                                             <textarea name="comment" required="" cols="30" rows="10"
-                                                  class="input-element"></textarea>
+                                                      class="input-element"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-12">
@@ -336,19 +322,25 @@
                         else
                         {
                             <div class="alert alert-warning">
-                                <p>برای ثبت نظرات باید وارد <a asp-page="/auth/login" asp-route-redirectTo="/product/@Model.SingleProduct.ProductDto.Slug">پنل کاربری</a> شده باشید</p>
+                                <p>
+                                    برای ثبت نظر باید
+                                    <a asp-page="/auth/login" asp-route-redirectTo="/product/@Model.SingleProduct.ProductDto.Slug">وارد حساب کاربری</a> خود شوید
+                                </p>
                             </div>
                         }
                         <div class="section-title mb-1 mt-4">
                             نظرات کاربران
                         </div>
-                        <hr>
+                        <hr />
                         <div id="comments"></div>
                     </div>
-                    <!-- end product-review -->
                 </div>
+
             </div>
+
         </div>
+
+
     </div>
 </div>
 @section Scripts
@@ -365,15 +357,21 @@
         })
 
         function changeCommentPage(pageId) {
-            $(document).ready(function () {
-                var productId = $("#productId").val();
-                $.ajax({
-                    url: `/product/slug/ProductComments?productId=${productId}&pageId=${pageId}`,
-                    type: "get",
-                }).done(function (data) {
-                    $("#comments").html(data);
-                });
-            })
+            var productId = $("#productId").val();
+            $.ajax({
+                url: `/product/slug/ProductComments?productId=${productId}&pageId=${pageId}`,
+                type: "get"
+            }).done(function (data) {
+                $("#comments").html(data);
+            });
+        }
+
+        function addToCartWithCount(id) {
+            var count = $("#item_count").val();
+            if (count <= 0)
+                count = 1;
+
+            addToCart(id, count);
         }
     </script>
 }
