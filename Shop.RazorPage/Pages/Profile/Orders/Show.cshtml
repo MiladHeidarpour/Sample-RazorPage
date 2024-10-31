@@ -1,4 +1,149 @@
-﻿@page
+﻿@page "{id}"
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Shop.RazorPage.Infrastructure
+@using Shop.RazorPage.Infrastructure.Utils
+@using Shop.RazorPage.Models.Response.Orders
 @model Shop.RazorPage.Pages.Profile.Orders.ShowModel
 @{
+    ViewData["Title"] = "لیست سفارشات";
 }
+
+
+<div class="row mb-5">
+    <partial name="Shared/Profile/_ProfileSideBar" />
+    <div class="col-lg-9 col-md-8">
+        <div class="section-title mb-2">
+            <span class="ml-2">جزئیات سفارش</span>
+            <span class="text-muted ml-2">|</span>
+            <span class="font-en ml-2">@Model.Order.Id</span>
+            <span class="text-muted ml-2">|</span>
+            <span class="text-sm text-secondary">@Model.Order.CreationDate.ToPersianDate("ds dd ms Y")</span>
+        </div>
+        <div class="row mb-4">
+            <div class="col-12">
+                <section class="shadow-around p-3">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="checkout-section shadow-around p-2">
+                                <div class="checkout-section-content">
+                                    <div class="cart-items">
+                                        <div class="mb-2">
+                                            <span class="text-muted">تحویل گیرنده :</span>
+                                            <span class="font-weight-bold">@Model.Order.Address.Name @Model.Order.Address.Family</span>
+                                        </div>
+                                        <div class="mb-2">
+                                            <span class="text-muted">شماره تماس : </span>
+                                            <span class="font-weight-bold">@Model.Order.Address.PhoneNumber</span>
+                                        </div>
+                                        <div class="mb-2">
+                                            <span class="text-muted d-block">ارسال به : <span class="font-weight-bold " style="color:black">@Model.Order.Address.PostalAddress</span></span>
+
+                                        </div>
+                                        <div class="mb-2">
+                                            <span class="text-muted">وضعیت : </span>
+                                            <span class="font-weight-bold text-success">
+                                                @switch (Model.Order.Status)
+                                                {
+                                                    case OrderStatus.Pending:
+                                                        {
+                                                            <span>در انتظار پرداخت</span>
+                                                            break;
+                                                        }
+                                                    case OrderStatus.Finally:
+                                                        {
+                                                            <span>درحال پردازش</span>
+                                                            break;
+                                                        }
+                                                    case OrderStatus.Rejected:
+                                                        {
+                                                            <span>مرجوع شده</span>
+                                                            break;
+                                                        }
+                                                    case OrderStatus.Shipping:
+                                                        {
+                                                            <span>ارسال شده</span>
+                                                            break;
+                                                        }
+                                                }
+                                            </span>
+                                        </div>
+                                        <div class="mb-2">
+                                            <span class="text-muted">مبلغ کل این مرسوله :</span>
+                                            <span class="font-weight-bold">
+                                                @Model.Order.Items.Sum(s => s.TotalPrice).ToString("#,0")
+                                                <span class="text-sm text-secondary">تومان</span>
+                                            </span>
+                                        </div>
+                                        <div class="mb-2">
+                                            <span class="text-muted">هزینه ارسال :</span>
+                                            <span class="font-weight-bold">
+                                                @Model.Order.ShippingMethod.ShippingType @Model.Order.ShippingMethod.ShippingCost.ToString("#,0")
+                                                <span class="text-sm text-secondary">تومان</span>
+                                            </span>
+                                        </div>
+                                        <div class="mb-2">
+                                            <span class="text-muted">مبلغ کل :</span>
+                                            <span class="font-weight-bold">
+                                                @Model.Order.TotalPrice.ToString("#,0")
+                                                <span class="text-sm text-secondary">تومان</span>
+                                            </span>
+                                        </div>
+                                        <hr>
+                                        @foreach (var item in Model.Order.Items)
+                                        {
+                                            var link = "/product/" + item.ProductSlug;
+                                            <div class="cart-item py-4 px-3">
+                                                <div class="item-thumbnail">
+                                                    <a href="@link">
+                                                        <img src="@Directories.GetProductImage(item.ProductImageName)" alt="@item.ProductTitle">
+                                                    </a>
+                                                </div>
+                                                <div class="item-info flex-grow-1">
+                                                    <div class="item-title">
+                                                        <h2>
+                                                            <a href="@link">@item.ProductTitle</a>
+                                                        </h2>
+                                                    </div>
+                                                    <div class="item-detail">
+                                                        <ul>
+
+                                                            <li>
+                                                                <i class="far fa-shield-check text-muted"></i>
+                                                                <span>@item.Count عدد</span>
+                                                            </li>
+                                                            <li>
+                                                                <i class="far fa-store-alt text-muted"></i>
+                                                                <span>نام فروشنده : @item.ShopName</span>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="item-quantity--item-price">
+                                                            <div class="item-price">
+                                                                <span class="text-muted"> قیمت :</span>
+                                                                @item.Price.ToString("#,0")<span class="text-sm mr-1">تومان</span>
+                                                            </div>
+                                                        </div>
+                                                        @if (item.Count > 1)
+                                                        {
+                                                            <hr />
+                                                            var totalPrice = item.Count * item.Price;
+                                                            <div class="item-quantity--item-price">
+                                                                <div class="item-price">
+                                                                    <span class="text-muted">کل قیمت :</span>
+                                                                    @totalPrice.ToString("#,0")<span class="text-sm mr-1">تومان</span>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

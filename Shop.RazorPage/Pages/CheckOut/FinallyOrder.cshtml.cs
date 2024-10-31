@@ -4,28 +4,28 @@ using Shop.RazorPage.Infrastructure;
 using Shop.RazorPage.Models.Response.Orders;
 using Shop.RazorPage.Services.Orders;
 
-namespace Shop.RazorPage.Pages.Profile.Orders;
+namespace Shop.RazorPage.Pages.CheckOut;
 
-public class ShowModel : PageModel
+public class FinallyOrderModel : PageModel
 {
     private readonly IOrderService _orderService;
 
-    public ShowModel(IOrderService orderService)
+    public FinallyOrderModel(IOrderService orderService)
     {
         _orderService = orderService;
     }
 
-    public OrderDto Order { get; set; }
-
-    public async Task<IActionResult> OnGet(long id)
+    public OrderDto OrderDto { get; set; }
+    public async Task<IActionResult> OnGet(long orderId)
     {
-        var order = await _orderService.GetOrderById(id);
+        var order = await _orderService.GetOrderById(orderId);
+
         if (order == null || order.UserId != User.GetUserId())
         {
-            return RedirectToPage("Index");
+            return Redirect("/");
         }
 
-        Order = order;
+        OrderDto = order;
         return Page();
     }
 }

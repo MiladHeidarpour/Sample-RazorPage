@@ -16,4 +16,5 @@ public interface IOrderService
     Task<OrderDto?> GetOrderById(long orderId);
     Task<OrderDto?> GetCurrentOrder();
     Task<OrderFilterResult> GetOrders(OrderFilterParams filterParams);
+    Task<OrderFilterResult> GetUserOrders(int pageId,int take, OrderStatus? status);
 }

@@ -55,6 +55,16 @@ public class OrderService : IOrderService
         return result?.Data;
     }
 
+    public async Task<OrderFilterResult> GetUserOrders(int pageId, int take, OrderStatus? status)
+    {
+        var url = $"order/current/filter?pageId={pageId}&take={take}";
+        if (status != null)
+            url += $"&status={status}";
+        var result = await _client
+            .GetFromJsonAsync<ApiResult<OrderFilterResult>>(url);
+        return result?.Data;
+    }
+
 
     public async Task<ApiResult> IncreaseOrderItem(IncreaseOrderItemCountCommand command)
     {

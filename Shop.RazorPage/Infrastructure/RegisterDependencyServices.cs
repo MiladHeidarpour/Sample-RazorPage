@@ -9,9 +9,12 @@ using Shop.RazorPage.Services.Orders;
 using Shop.RazorPage.Services.Products;
 using Shop.RazorPage.Services.Roles;
 using Shop.RazorPage.Services.Sellers;
+using Shop.RazorPage.Services.ShippingMethods;
 using Shop.RazorPage.Services.Sliders;
+using Shop.RazorPage.Services.Transactions;
 using Shop.RazorPage.Services.UserAddress;
 using Shop.RazorPage.Services.Users;
+using StackExchange.Redis;
 
 namespace Shop.RazorPage.Infrastructure;
 
@@ -78,6 +81,16 @@ public static class RegisterDependencyServices
         }).AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
 
         services.AddHttpClient<IUserService, UserService>(httpClient =>
+        {
+            httpClient.BaseAddress = new Uri(baseAddress);
+        }).AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
+
+        services.AddHttpClient<IShippingMethodService, ShippingMethodService>(httpClient =>
+        {
+            httpClient.BaseAddress = new Uri(baseAddress);
+        }).AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
+
+        services.AddHttpClient<ITransactionService, TransactionService>(httpClient =>
         {
             httpClient.BaseAddress = new Uri(baseAddress);
         }).AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
