@@ -1,4 +1,5 @@
-﻿using Shop.RazorPage.Models;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using Shop.RazorPage.Models;
 using Shop.RazorPage.Models.Command.Orders;
 using Shop.RazorPage.Models.Response.Orders;
 
@@ -37,6 +38,12 @@ public class OrderService : IOrderService
         return await result.Content.ReadFromJsonAsync<ApiResult>();
     }
 
+    public async Task<ApiResult> SendOrder(long orderId)
+    {
+        var result = await _client.PutAsync($"order/sendOrder/{orderId}", null);
+        return await result.Content.ReadFromJsonAsync<ApiResult>();
+    }
+
     public async Task<OrderDto?> GetCurrentOrder()
     {
         var result = await _client.GetFromJsonAsync<ApiResult<OrderDto?>>($"Order/Current");
@@ -51,7 +58,20 @@ public class OrderService : IOrderService
 
     public async Task<OrderFilterResult> GetOrders(OrderFilterParams filterParams)
     {
-        var result = await _client.GetFromJsonAsync<ApiResult<OrderFilterResult>>("Order");
+        var url = $"order/?pageId={filterParams.PageId}&take={filterParams.Take}";
+        if (filterParams.StartDate != null)
+            url += "&startDate=" + filterParams.StartDate;
+
+        if (filterParams.EndDate != null)
+            url += "&endDate=" + filterParams.EndDate;
+
+        if (filterParams.Status != null)
+            url += "&status=" + filterParams.Status;
+
+        if (filterParams.UserId != null)
+            url += "&UserId=" + filterParams.UserId;
+
+        var result = await _client.GetFromJsonAsync<ApiResult<OrderFilterResult>>(url);
         return result?.Data;
     }
 
